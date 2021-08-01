@@ -10,6 +10,7 @@ void exampe1()
   *ll_push(list) = 20;
   *ll_push(list) = 30;
 
+  printf("len = %d\n", ll_len(list));
   int *value = ll_first(list);
   while (value != NULL)
   {
@@ -43,6 +44,9 @@ void example2()
   node->x = 30;
   node->y = -30;
 
+  ll_shift(list);
+
+  printf("len = %d\n", ll_len(list));
   node = ll_first(list);
   while (node != NULL)
   {

@@ -50,13 +50,8 @@ static void _free_node(LLN *node)
 static LLN *_new_node(LL *list)
 {
   assert(list != NULL);
-  fprintf(stderr, "new node\n");
-  fprintf(stderr, "list.len=%d\n", list->len);
   list->data_size;
-  fprintf(stderr, "new node1\n");
-  fprintf(stderr, "malloc dsize=%ld\n", list->data_size);
   LLN *node = (LLN *)malloc(sizeof(LLN) + list->data_size);
-  fprintf(stderr, "new node 2\n");
   node->next = NULL;
   node->prev = NULL;
   node->base = list;
@@ -81,9 +76,7 @@ void ll_free(void *list)
   while (node != NULL)
   {
     LLN *next = node->next;
-    fprintf(stderr, "before free_node\n");
     _free_node(node);
-    fprintf(stderr, "after free_node\n");
     node = next;
   }
   free(ll);
@@ -91,12 +84,10 @@ void ll_free(void *list)
 
 void *_ll_insert_before(void *node)
 {
-  fprintf(stderr, "insert before\n");
   LLN *curr = _get_node_header(node);
   LLN *prev = curr->prev;
   LL *list = curr->base;
   LLN *new = _new_node(list);
-  fprintf(stderr, "ib 1\n");
   if (prev == NULL)
   {
     new->next = curr;
@@ -117,20 +108,13 @@ void *_ll_insert_before(void *node)
 
 void *_ll_insert_after(void *node)
 {
-  fprintf(stderr, "insert after\n");
-
   LLN *curr = _get_node_header(node);
   LLN *next = curr->next;
   if (next != NULL)
     return _ll_insert_before(_get_node_data(next));
 
-  fprintf(stderr, "ia 1\n");
   LL *list = curr->base;
-
-  fprintf(stderr, "[len=%d, head=%d, tail=%d]\n", list->len, list->head, list->tail);
   LLN *new = _new_node(list);
-  fprintf(stderr, "[len=%d, head=%d, tail=%d]\n", new->base->len, new->base->head, new->base->tail);
-  fprintf(stderr, "ia 2\n");
   curr->next = new;
   new->prev = curr;
   list->tail = new;
@@ -142,30 +126,13 @@ void *_ll_insert_after(void *node)
 void *_ll_push(void *list)
 {
   LL *ll = _get_list_header(list);
-
-  fprintf(stderr, "push [len=%d, head=%d, tail=%d]\n",
-          ll->len, ll->head, ll->tail);
-
-  fprintf(stderr, "1 ");
   if (ll->tail != NULL)
-  {
-
-    LLN *tail = ll->tail;
-    fprintf(stderr, "tail [prev=%d, next=%d, base.len=%d]\n",
-            tail->prev, tail->next, tail->base->len);
     return _ll_insert_after(_get_node_data(ll->tail));
-
-    // return _ll_insert_after(ll->tail);
-  }
 
   LLN *new = _new_node(ll);
   ll->head = ll->tail = new;
 
   ll->len += 1;
-
-  void *d = _get_node_data(new);
-  LLN *n = _get_node_header(d);
-
   return _get_node_data(new);
 }
 
