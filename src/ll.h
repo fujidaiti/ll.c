@@ -6,6 +6,7 @@
 void *_ll_new(size_t data_size);
 void ll_free(void *list);
 void ll_shift(void *list);
+void ll_remove(void *node);
 int ll_len(void *list);
 void *_ll_next(void *node);
 void *_ll(int index, void *list);

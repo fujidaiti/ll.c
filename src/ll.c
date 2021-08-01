@@ -167,6 +167,27 @@ void ll_shift(void *list)
   }
 }
 
+void ll_remove(void *node)
+{
+  LLN *lln = _get_node_header(node);
+  LLN *prev = lln->prev;
+  LLN *next = lln->next;
+  LL *ll = lln->base;
+
+  if (prev != NULL)
+    prev->next = next;
+  else
+    ll->head = next;
+
+  if (next != NULL)
+    next->prev = prev;
+  else
+    ll->tail = prev;
+
+  ll->len -= 1;
+  _free_node(lln);
+}
+
 void *_ll_first(void *list)
 {
   LLN *head = _get_list_header(list)->head;

@@ -85,9 +85,36 @@ void example3()
   ll_free(list);
 }
 
+void example4()
+{
+  int *list;
+  list = ll_new(list);
+  *ll_push(list) = 1;
+  *ll_push(list) = 2;
+  *ll_push(list) = 3;
+  *ll_push(list) = 4;
+  *ll_push(list) = 5;
+
+  ll_remove(ll(0, list));
+  ll_remove(ll(3, list));
+  ll_remove(ll(1, list));
+
+  printf("len=%d [ ", ll_len(list));
+  int *node = ll_first(list);
+  while (node != NULL)
+  {
+    printf("%d ", *node);
+    node = ll_next(node);
+  }
+  printf("]\n");
+
+  ll_free(list);
+}
+
 void main()
 {
   example1();
   example2();
   example3();
+  example4();
 }
