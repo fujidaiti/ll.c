@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void example0()
+{
+  int *list;
+  list = ll_new(list);
+
+  *((int *)_ll_push(list)) = 10;
+  printf("%d\n", *((int *)_ll_first(list)));
+
+  *ll_push(list) = 10;
+  printf("%d\n", *ll_first(list));
+
+  ll_free(list);
+}
+
 void example1()
 {
   int *list;
@@ -111,10 +125,42 @@ void example4()
   ll_free(list);
 }
 
+void example5()
+{
+  int data[] = {1, 2, 3, 4, 5};
+  int **refs;
+  refs = ll_new(refs);
+  *ll_push(refs) = &data[0];
+  *ll_push(refs) = &data[1];
+  *ll_push(refs) = &data[2];
+  *ll_push(refs) = &data[3];
+  *ll_push(refs) = &data[4];
+
+  printf("[ ");
+  for (int **ref = ll_first(refs); ref != NULL; ref = ll_next(ref))
+    printf("%d ", **ref);
+  printf("]\n");
+
+  ll_remove(ll_first(refs));
+
+  printf("[ ");
+  for (int **ref = ll_first(refs); ref != NULL; ref = ll_next(ref))
+    printf("%d ", **ref);
+  printf("]\n");
+
+  data[2] = data[2] * 10;
+
+  printf("[ ");
+  for (int **ref = ll_first(refs); ref != NULL; ref = ll_next(ref))
+    printf("%d ", **ref);
+  printf("]\n");
+}
+
 void main()
 {
   example1();
   example2();
   example3();
   example4();
+  example5();
 }
