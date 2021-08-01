@@ -1,7 +1,8 @@
 #include "../src/ll.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-void exampe1()
+void example1()
 {
   int *list;
   list = ll_new(list);
@@ -11,11 +12,11 @@ void exampe1()
   *ll_push(list) = 30;
 
   printf("len = %d\n", ll_len(list));
-  int *value = ll_first(list);
-  while (value != NULL)
+  int *node = ll_first(list);
+  while (node != NULL)
   {
-    printf("%d\n", *value);
-    value = ll_next(value);
+    printf("%d\n", *node);
+    node = ll_next(node);
   }
 
   ll_free(list);
@@ -57,8 +58,36 @@ void example2()
   ll_free(list);
 }
 
+void example3()
+{
+  srand(0);
+  int *list;
+  list = ll_new(list);
+
+  for (int i = 0; i < 10; ++i)
+  {
+    int x = rand() % 100;
+    int *xi = ll_first(list);
+    while (xi != NULL && *xi < x)
+      xi = ll_next(xi);
+
+    if (xi == NULL)
+      *ll_push(list) = x;
+    else
+      *ll_insert_before(xi) = x;
+  }
+
+  printf("len=%d : [ ", ll_len(list));
+  for (int i = 0; i < 10; ++i)
+    printf("%d ", *ll(i, list));
+  printf("]\n");
+
+  ll_free(list);
+}
+
 void main()
 {
-  exampe1();
+  example1();
   example2();
+  example3();
 }
