@@ -1,4 +1,4 @@
-# c-ll (LinkedList in C)
+# ll.c (LinkedList in C)
 
 ```
 $ gcc --version
