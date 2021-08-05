@@ -156,10 +156,11 @@ void *_ll_prev(void *node)
 void ll_shift(void *list)
 {
   LL *ll = _get_list_header(list);
-  if (ll->head == NULL)
+  LLN *head = ll->head;
+  if (head == NULL)
     return;
 
-  LLN *new_head = ll->head->next;
+  LLN *new_head = head->next;
   if (new_head == NULL)
   {
     ll->head = ll->tail = NULL;
@@ -171,6 +172,8 @@ void ll_shift(void *list)
     new_head->prev = NULL;
     ll->len -= 1;
   }
+
+  _free_node(head);
 }
 
 void ll_remove(void *node)
