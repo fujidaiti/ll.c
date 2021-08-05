@@ -147,6 +147,12 @@ void *_ll_next(void *node)
   return next != NULL ? _get_node_data(next) : NULL;
 }
 
+void *_ll_prev(void *node)
+{
+  LLN *prev = _get_node_header(node)->prev;
+  return prev != NULL ? _get_node_data(prev) : NULL;
+}
+
 void ll_shift(void *list)
 {
   LL *ll = _get_list_header(list);
